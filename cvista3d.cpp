@@ -180,7 +180,7 @@ void CVista3D::Escena(CEscena* _escena)
 
     if(escena = _escena)
     {
-        //Objetos Esferas
+        //Objetos Esferas  ///¿Funcion dibujar esferas?
         for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
         {
             CEsfera3D* esfera3d = new CEsfera3D;
@@ -251,7 +251,7 @@ void CVista3D::Escena(CEscena* _escena)
             persona3d->altura = PERSONA_ALTURA;
             persona3d->x      = escena->Persona(persona)->PosicionX();
             persona3d->y      = escena->Persona(persona)->PosicionY();
-            persona3d->z      = AlturaBaldosa + persona3d->altura / 2;
+            persona3d->z      = AlturaBaldosa*3 + persona3d->altura / 2; //Esferas por debajo. Resto de objetos no. Arreglado multiplicando *3
             persona3d->color  = escena->Persona(persona)->Color();
             personas3d.push_back(*persona3d);
 
@@ -411,8 +411,53 @@ void CVista3D::run()
     escena3d->addChild(MatrixTransform_Carro);
 */
 
+
+
+
     while(!vista.done())
     {
+      //  escena3d = NULL; //seguramente libera la memoria
+        int imax,imin;
+        //imax=escena3d->getNumChildren();
+        imin=(NumBaldosasXMax-NumBaldosasXMin)*(NumBaldosasYMax-NumBaldosasYMin);
+        imax=imin+escena->NumEsferas();
+
+    for(int i=imin;i=imax;i++)
+    {
+
+
+            CEsfera3D* esfera3d = new CEsfera3D;
+            esfera3d->id    = escena->Esfera(esfera)->Id();
+            esfera3d->radio = ESFERA_RADIO;
+            esfera3d->x     = escena->Esfera(esfera)->PosicionX();
+            esfera3d->y     = escena->Esfera(esfera)->PosicionY();
+            esfera3d->z     = AlturaBaldosa + esfera3d->radio; //Esferas por debajo
+            esfera3d->color = escena->Esfera(esfera)->Color();
+            esferas3d.push_back(*esfera3d);
+
+
+            escena3d->setChild(i,esfera3d);
+            /*osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+            osg::Vec3 posicion(esfera3d->x, esfera3d->y, esfera3d->z);
+            trasformacion->setPosition(posicion);
+            trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
+            switch(esfera3d->color)
+            {
+            case Rojo:
+                trasformacion->addChild(Geode_EsferaRoja);
+                break;
+            case Verde:
+                trasformacion->addChild(Geode_EsferaVerde);
+                break;
+            case Azul:
+                trasformacion->addChild(Geode_EsferaAzul);
+                break;
+            }
+            escena3d->addChild(trasformacion);*/
+        }
+
+
+
         vista.frame();
     }
 }
