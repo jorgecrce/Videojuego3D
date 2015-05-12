@@ -24,9 +24,9 @@
 #include "ccomunicacioncliente.h"
 #include "cescena.h"
 
-#define AnchuraBaldosaX 10
-#define AnchuraBaldosaY 10
-#define AlturaBaldosa   0.5
+#define AnchuraBaldosaX 0.5
+#define AnchuraBaldosaY 0.5
+#define AlturaBaldosa   0.05
 #define NumBaldosasXMin (X_MIN/AnchuraBaldosaX)
 #define NumBaldosasXMax (X_MAX/AnchuraBaldosaX)
 #define NumBaldosasYMin (Y_MIN/AnchuraBaldosaY)
