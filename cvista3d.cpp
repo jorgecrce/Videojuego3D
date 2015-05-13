@@ -369,6 +369,38 @@ CEscena* CVista3D::Escena(void)
 void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
 {
 
+
+    int esfera=escena->NumEsferas();
+    CEsfera3D* esfera3d = new CEsfera3D;
+    esfera3d->id    = escena->Esfera(esfera)->Id();
+    esfera3d->radio = ESFERA_RADIO;
+    esfera3d->x     = escena->Esfera(esfera)->PosicionX();
+    esfera3d->y     = escena->Esfera(esfera)->PosicionY();
+    esfera3d->z     = AlturaBaldosa + esfera3d->radio;
+    esfera3d->color = escena->Esfera(esfera)->Color();
+    esferas3d.push_back(*esfera3d);
+
+    osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+    nodos_esferas.push_back(trasformacion);
+    osg::Vec3 pos(esfera3d->x, esfera3d->y, esfera3d->z);
+    trasformacion->setPosition(pos);
+    trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
+    switch(esfera3d->color)
+    {
+    case Rojo:
+        trasformacion->addChild(Geode_EsferaRoja);
+        break;
+    case Verde:
+        trasformacion->addChild(Geode_EsferaVerde);
+        break;
+    case Azul:
+        trasformacion->addChild(Geode_EsferaAzul);
+        break;
+    }
+    escena3d->addChild(trasformacion);
+    NuevaEsfera(escena->Esfera(esfera)->Color(), escena->Esfera(esfera)->Posicion());
+    escena->ConectarVista3D(this);
+
 }
 
 void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
