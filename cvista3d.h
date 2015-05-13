@@ -75,6 +75,12 @@ class CVista3D : public QThread
     std::vector<CCaja3D>    cajas3d;
     std::vector<CPersona3D> personas3d;
     std::vector<CRobot3D>   robots3d;
+
+    std::vector<osg::ref_ptr<osg::PositionAttitudeTransform> > nodos_esferas;
+    std::vector<osg::ref_ptr<osg::PositionAttitudeTransform> > nodos_cajas;
+    std::vector<osg::ref_ptr<osg::PositionAttitudeTransform> > nodos_personas;
+    std::vector<osg::ref_ptr<osg::PositionAttitudeTransform> > nodos_robots;
+
     osgViewer::Viewer vista;
     osg::ref_ptr<osg::Node> Node_BaldosaBlanca,
                             Node_BaldosaGris,
@@ -94,6 +100,9 @@ class CVista3D : public QThread
                                 Node_PersonaRoja_SS,
                                 Node_PersonaVerde_SS,
                                 Node_PersonaAzul_SS,
+                                Node_RobotRojo_SS,
+                                Node_RobotVerde_SS,
+                                Node_RobotAzul_SS,
                                 Node_PersonaFormaRoja_SS,
                                 Node_PersonaFormaVerde_SS,
                                 Node_PersonaFormaAzul_SS;
@@ -109,15 +118,20 @@ class CVista3D : public QThread
                                 Node_PersonaRoja_Material,
                                 Node_PersonaVerde_Material,
                                 Node_PersonaAzul_Material,
+                                Node_RobotRojo_Material,
+                                Node_RobotVerde_Material,
+                                Node_RobotAzul_Material,
                                 Node_PersonaFormaRoja_Material,
                                 Node_PersonaFormaVerde_Material,
                                 Node_PersonaFormaAzul_Material;
     osg::ref_ptr<osg::Sphere> Esfera;
     osg::ref_ptr<osg::Cylinder> Caja,
-                                Persona;
+                                Persona,
+                                Robot;
     osg::ref_ptr<osg::ShapeDrawable> ShapeDrawable_Esfera,
                                      ShapeDrawable_Caja,
-                                     ShapeDrawable_Persona;
+                                     ShapeDrawable_Persona,
+                                     ShapeDrawable_Robot;
     osg::ref_ptr<osg::Geode> Geode_EsferaRoja,
                              Geode_EsferaVerde,
                              Geode_EsferaAzul,
@@ -126,7 +140,10 @@ class CVista3D : public QThread
                              Geode_CajaAzul,
                              Geode_PersonaRoja,
                              Geode_PersonaVerde,
-                             Geode_PersonaAzul;
+                             Geode_PersonaAzul,
+                             Geode_RobotRojo,
+                             Geode_RobotVerde,
+                             Geode_RobotAzul;
 public:
     CVista3D();
     ~CVista3D();
