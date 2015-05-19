@@ -144,11 +144,6 @@ void MainWindow::NuevaEsfera(void)
     {
         (*ivista2d)->NuevaEsfera(color, posicion);
     }
-    std::vector<CVista3D*>::iterator ivista3d;
-    for (ivista3d =vistas3d.begin(); ivista3d !=vistas3d.end(); ivista3d++)
-    {
-        (*ivista3d)->NuevaEsfera(color, posicion);
-    }
     }
 }
 
