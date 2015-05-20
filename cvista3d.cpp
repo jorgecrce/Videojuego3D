@@ -368,22 +368,140 @@ CEscena* CVista3D::Escena(void)
 
 void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
 {
+    //Objetos Esferas
+    for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
+    {
+        CEsfera3D* esfera3d = new CEsfera3D;
+        esfera3d->id    = escena->Esfera(esfera)->Id();
+        esfera3d->radio = ESFERA_RADIO;
+        esfera3d->x     = posicion.x;
+        esfera3d->y     = posicion.y;
+        esfera3d->z     = AlturaBaldosa + esfera3d->radio;
+        esfera3d->color = color;
+        esferas3d.push_back(*esfera3d);
 
+        osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+        nodos_esferas.push_back(trasformacion);
+        osg::Vec3 posicion(esfera3d->x, esfera3d->y, esfera3d->z);
+        trasformacion->setPosition(posicion);
+        trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
+
+        switch(color)
+        {
+        case Rojo:
+            trasformacion->addChild(Geode_EsferaRoja);
+            break;
+        case Verde:
+            trasformacion->addChild(Geode_EsferaVerde);
+            break;
+        case Azul:
+            trasformacion->addChild(Geode_EsferaAzul);
+            break;
+        }
+        escena3d->addChild(trasformacion);
+    }
 }
 
 void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
 {
+    for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
+    {
+        CCaja3D* caja3d = new CCaja3D;
+        caja3d->id     = escena->Caja(caja)->Id();
+        caja3d->radio  = CAJA_RADIO;
+        caja3d->altura = CAJA_ALTURA;
+        caja3d->x      = posicion.x;
+        caja3d->y      = posicion.y;
+        caja3d->z      = AlturaBaldosa + caja3d->altura / 2;
+        caja3d->color  = color;
+        cajas3d.push_back(*caja3d);
 
+        osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+        nodos_cajas.push_back(trasformacion);
+        osg::Vec3 posicion(caja3d->x, caja3d->y, caja3d->z);
+        trasformacion->setPosition(posicion);
+        switch(color)
+        {
+        case Rojo:
+            trasformacion->addChild(Geode_CajaRoja);
+            break;
+        case Verde:
+            trasformacion->addChild(Geode_CajaVerde);
+            break;
+        case Azul:
+            trasformacion->addChild(Geode_CajaAzul);
+            break;
+        }
+        escena3d->addChild(trasformacion);
+    }
 }
 
 void CVista3D::NuevaPersona(TColor color, TPosicion posicion, float orientacion)
 {
+    for(unsigned int persona = 0; persona < escena->NumPersonas() ; persona++)
+    {
+        CPersona3D* persona3d = new CPersona3D;
+        persona3d->id     = escena->Persona(persona)->Id();
+        persona3d->radio  = PERSONA_RADIO;
+        persona3d->altura = PERSONA_ALTURA;
+        persona3d->x      = posicion.x;
+        persona3d->y      = posicion.y;
+        persona3d->z      = AlturaBaldosa + persona3d->altura / 2;
+        persona3d->color  = color;
+        personas3d.push_back(*persona3d);
 
+        osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+        nodos_personas.push_back(trasformacion);
+        osg::Vec3 posicion(persona3d->x, persona3d->y, persona3d->z);
+        trasformacion->setPosition(posicion);
+        switch(color)
+        {
+        case Rojo:
+            trasformacion->addChild(Geode_PersonaRoja);
+            break;
+        case Verde:
+            trasformacion->addChild(Geode_PersonaVerde);
+            break;
+        case Azul:
+            trasformacion->addChild(Geode_PersonaAzul);
+            break;
+        }
+        escena3d->addChild(trasformacion);
+    }
 }
 
 void CVista3D::NuevoRobot(TColor color, TPosicion posicion, float orientacion)
 {
+    for(unsigned int robot = 0; robot < escena->NumRobots() ; robot++)
+    {
+        CRobot3D* robot3d = new CRobot3D;
+        robot3d->id     = escena->Robot(robot)->Id();
+        robot3d->radio  = ROBOT_RADIO;
+        robot3d->altura = ROBOT_ALTURA;
+        robot3d->x      = posicion.x;
+        robot3d->y      = posicion.y;
+        robot3d->z      = AlturaBaldosa + robot3d->altura / 2;
+        robot3d->color  = color;
+        robots3d.push_back(*robot3d);
 
+        osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+        nodos_robots.push_back(trasformacion);
+        osg::Vec3 posicion(robot3d->x, robot3d->y, robot3d->z);
+        trasformacion->setPosition(posicion);
+        switch(color)
+        {
+        case Rojo:
+            trasformacion->addChild(Geode_RobotRojo);
+            break;
+        case Verde:
+            trasformacion->addChild(Geode_RobotVerde);
+            break;
+        case Azul:
+            trasformacion->addChild(Geode_RobotAzul);
+            break;
+        }
+        escena3d->addChild(trasformacion);
+    }
 }
 
 void CVista3D::PosicionEsfera(unsigned int esfera, TPosicion posicion)
@@ -418,7 +536,21 @@ void CVista3D::OrientacionRobot(unsigned int robot, float orientacion)
 
 void CVista3D::BorrarEsferas(void)
 {
+    /*
+     * for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
+    {
+        nodos_esferas.erase(esfera);
+    }
 
+    nodos_esferas.clear();
+
+    std::vector<QGraphicsEllipseItem*>::iterator iesfera2d;
+    for(iesfera2d = esferas2d.begin(); iesfera2d != esferas2d.end(); iesfera2d++)
+    {
+        escena2d->removeItem(*iesfera2d);
+    }
+    esferas2d.clear();
+*/
 }
 
 void CVista3D::BorrarCajas(void)
