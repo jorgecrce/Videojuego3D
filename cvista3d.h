@@ -95,7 +95,11 @@ class CVista3D : public QThread
                             Node_RobotAzul,
                             Node_MujerRoja,
                             Node_MujerVerde,
-                            Node_MujerAzul;
+                            Node_MujerAzul,
+                            Node_CajaAzul,
+                            Node_CajaRoja,
+                            Node_CajaVerde;
+
     osg::ref_ptr<osg::StateSet> Node_BaldosaBlanca_SS,
                                 Node_BaldosaGris_SS,
                                 Node_BaldosaNegra_SS,

@@ -56,31 +56,26 @@ CVista3D::CVista3D()
     Node_EsferaAzul_SS ->setAttribute(Node_EsferaAzul_Material .get());
 
     //Modelos Cajas
-    Caja               = new osg::Cylinder(osg::Vec3(0,0,0), 0.5,0.5);
-    ShapeDrawable_Caja = new osg::ShapeDrawable(Caja);
-    Geode_CajaRoja     = new osg::Geode();
-    Geode_CajaVerde    = new osg::Geode();
-    Geode_CajaAzul     = new osg::Geode();
 
-    Node_CajaRoja_SS  = Geode_CajaRoja ->getOrCreateStateSet();
-    Node_CajaVerde_SS = Geode_CajaVerde->getOrCreateStateSet();
-    Node_CajaAzul_SS  = Geode_CajaAzul ->getOrCreateStateSet();
+        Node_CajaRoja  = osgDB::readNodeFile( "chest.stl" );
+        Node_CajaVerde = osgDB::readNodeFile( "chest.stl" );
+        Node_CajaAzul  = osgDB::readNodeFile( "chest.stl" );
 
-    Node_CajaRoja_Material  = new osg::Material;
-    Node_CajaVerde_Material = new osg::Material;
-    Node_CajaAzul_Material  = new osg::Material;
+        Node_CajaRoja_SS  = Node_CajaRoja ->getOrCreateStateSet();
+        Node_CajaVerde_SS = Node_CajaVerde->getOrCreateStateSet();
+        Node_CajaAzul_SS  = Node_CajaAzul ->getOrCreateStateSet();
 
-    Geode_CajaRoja ->addDrawable(ShapeDrawable_Caja);
-    Geode_CajaVerde->addDrawable(ShapeDrawable_Caja);
-    Geode_CajaAzul ->addDrawable(ShapeDrawable_Caja);
+        Node_CajaRoja_Material  = new osg::Material;
+        Node_CajaVerde_Material = new osg::Material;
+        Node_CajaAzul_Material  = new osg::Material;
 
-    Node_CajaRoja_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f,0.0f,0.0f,1.0f));
-    Node_CajaVerde_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,1.0f,0.0f,1.0f));
-    Node_CajaAzul_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,0.0f,1.0f,1.0f));
+        Node_CajaRoja_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f,0.0f,0.0f,1.0f));
+        Node_CajaVerde_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,1.0f,0.0f,1.0f));
+        Node_CajaAzul_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,0.0f,1.0f,1.0f));
 
-    Node_CajaRoja_SS ->setAttribute(Node_CajaRoja_Material .get());
-    Node_CajaVerde_SS->setAttribute(Node_CajaVerde_Material.get());
-    Node_CajaAzul_SS ->setAttribute(Node_CajaAzul_Material .get());
+        Node_CajaRoja_SS ->setAttribute(Node_CajaRoja_Material .get());
+        Node_CajaVerde_SS->setAttribute(Node_CajaVerde_Material.get());
+        Node_CajaAzul_SS ->setAttribute(Node_CajaAzul_Material .get());
 
     /*//Modelo Tetera-Caja
     Node_TeteraRoja = osgDB::readNodeFile( "tetera.stl" );
@@ -231,7 +226,7 @@ void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
         esfera3d->radio = ESFERA_RADIO;
         esfera3d->x     = posicion.x;
         esfera3d->y     = posicion.y;
-        esfera3d->z     = AlturaBaldosa + esfera3d->radio;
+        esfera3d->z     = AlturaBaldosa + esfera3d->radio*2;
         esfera3d->color = color;
         esferas3d.push_back(*esfera3d);
 
@@ -239,7 +234,8 @@ void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
         nodos_esferas.push_back(trasformacion);
         osg::Vec3 position(esfera3d->x, -esfera3d->y, esfera3d->z);
         trasformacion->setPosition(position);
-        trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
+        trasformacion->setScale(osg::Vec3(2*esfera3d->radio, 2*esfera3d->radio, 2*esfera3d->radio));//Radio más grande
+        //trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
 
         switch(color)
         {
@@ -259,6 +255,7 @@ void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
 
 void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
 {
+        float altura;
         CCaja3D* caja3d = new CCaja3D;
         caja3d->id     = (escena->NumCajas())+1;
         caja3d->radio  = CAJA_RADIO;
@@ -273,16 +270,21 @@ void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
         nodos_cajas.push_back(trasformacion);
         osg::Vec3 position(caja3d->x, -caja3d->y, caja3d->z);
         trasformacion->setPosition(position);
+
+        altura=1*(Node_CajaRoja->getBound().radius());
+        trasformacion->setScale(osg::Vec3(CAJA_ALTURA/altura,CAJA_ALTURA/altura,CAJA_ALTURA/altura));
+        //trasformacion->setAttitude(osg::Quat(orientacion+osg::DegreesToRadians(90.0), osg::Vec3(0,0,1)));
+
         switch(color)
         {
         case Rojo:
-            trasformacion->addChild(Geode_CajaRoja);
+            trasformacion->addChild(Node_CajaRoja);
             break;
         case Verde:
-            trasformacion->addChild(Geode_CajaVerde);
+            trasformacion->addChild(Node_CajaVerde);
             break;
         case Azul:
-            trasformacion->addChild(Geode_CajaAzul);
+            trasformacion->addChild(Node_CajaAzul);
             break;
         }
         escena3d->addChild(trasformacion);
@@ -333,7 +335,7 @@ void CVista3D::NuevoRobot(TColor color, TPosicion posicion, float orientacion)
         robot3d->altura = ROBOT_ALTURA;
         robot3d->x      = posicion.x;
         robot3d->y      = posicion.y;
-        robot3d->z      = RobotZ/*AlturaBaldosa+(robot3d->altura)/* - robot3d->altura/2*/;
+        robot3d->z      = RobotZ/*AlturaBaldosa+(robot3d->altura) - robot3d->altura/2*/;
         robot3d->color  = color;
         robots3d.push_back(*robot3d);
 
@@ -452,7 +454,7 @@ void CVista3D::run()
     {
         for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
         {
-            osg::Vec3 posicion(escena->Esfera(esfera)->PosicionX(), -escena->Esfera(esfera)->PosicionY(), AlturaBaldosa + ESFERA_RADIO);
+            osg::Vec3 posicion(escena->Esfera(esfera)->PosicionX(), -escena->Esfera(esfera)->PosicionY(), AlturaBaldosa + ESFERA_RADIO*2);
             nodos_esferas[esfera]->setPosition(posicion);
         }
         for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
