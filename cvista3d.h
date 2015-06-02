@@ -31,6 +31,7 @@
 #define NumBaldosasXMax (X_MAX/AnchuraBaldosaX)
 #define NumBaldosasYMin (Y_MIN/AnchuraBaldosaY)
 #define NumBaldosasYMax (Y_MAX/AnchuraBaldosaY)
+#define RobotZ AlturaBaldosa+ROBOT_ALTURA/2
 
 class CEsfera3D
 {
