@@ -70,6 +70,7 @@ class CVista3D : public QThread
 {
     CComunicacionCliente *comunicacion_cliente;
     CEscena *escena;
+
     osg::ref_ptr<osg::Group> escena3d;
     std::vector<CEsfera3D>  esferas3d;
     std::vector<CCaja3D>    cajas3d;
@@ -87,7 +88,13 @@ class CVista3D : public QThread
                             Node_BaldosaNegra,
                             Node_PersonaFormaRoja,
                             Node_PersonaFormaVerde,
-                            Node_PersonaFormaAzul;
+                            Node_PersonaFormaAzul,
+                            Node_RobotRojo,
+                            Node_RobotVerde,
+                            Node_RobotAzul,
+                            Node_MujerRoja,
+                            Node_MujerVerde,
+                            Node_MujerAzul;
     osg::ref_ptr<osg::StateSet> Node_BaldosaBlanca_SS,
                                 Node_BaldosaGris_SS,
                                 Node_BaldosaNegra_SS,
@@ -97,15 +104,16 @@ class CVista3D : public QThread
                                 Node_CajaRoja_SS,
                                 Node_CajaVerde_SS,
                                 Node_CajaAzul_SS,
-                                Node_PersonaRoja_SS,
-                                Node_PersonaVerde_SS,
-                                Node_PersonaAzul_SS,
                                 Node_RobotRojo_SS,
                                 Node_RobotVerde_SS,
                                 Node_RobotAzul_SS,
                                 Node_PersonaFormaRoja_SS,
                                 Node_PersonaFormaVerde_SS,
-                                Node_PersonaFormaAzul_SS;
+                                Node_PersonaFormaAzul_SS,
+                                Node_MujerRoja_SS,
+                                Node_MujerVerde_SS,
+                                Node_MujerAzul_SS;
+
     osg::ref_ptr<osg::Material> Node_BaldosaBlanca_Material,
                                 Node_BaldosaGris_Material,
                                 Node_BaldosaNegra_Material,
@@ -123,27 +131,20 @@ class CVista3D : public QThread
                                 Node_RobotAzul_Material,
                                 Node_PersonaFormaRoja_Material,
                                 Node_PersonaFormaVerde_Material,
-                                Node_PersonaFormaAzul_Material;
+                                Node_PersonaFormaAzul_Material,
+                                Node_MujerRoja_Material,
+                                Node_MujerVerde_Material,
+                                Node_MujerAzul_Material;
     osg::ref_ptr<osg::Sphere> Esfera;
-    osg::ref_ptr<osg::Cylinder> Caja,
-                                Persona,
-                                Robot;
+    osg::ref_ptr<osg::Cylinder> Caja;
     osg::ref_ptr<osg::ShapeDrawable> ShapeDrawable_Esfera,
-                                     ShapeDrawable_Caja,
-                                     ShapeDrawable_Persona,
-                                     ShapeDrawable_Robot;
+                                     ShapeDrawable_Caja;
     osg::ref_ptr<osg::Geode> Geode_EsferaRoja,
                              Geode_EsferaVerde,
                              Geode_EsferaAzul,
                              Geode_CajaRoja,
                              Geode_CajaVerde,
-                             Geode_CajaAzul,
-                             Geode_PersonaRoja,
-                             Geode_PersonaVerde,
-                             Geode_PersonaAzul,
-                             Geode_RobotRojo,
-                             Geode_RobotVerde,
-                             Geode_RobotAzul;
+                             Geode_CajaAzul;
 public:
     CVista3D();
     ~CVista3D();

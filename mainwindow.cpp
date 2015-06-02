@@ -144,6 +144,11 @@ void MainWindow::NuevaEsfera(void)
     {
         (*ivista2d)->NuevaEsfera(color, posicion);
     }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->NuevaEsfera(color, posicion);
+    }
     }
 }
 
@@ -164,6 +169,11 @@ void MainWindow::NuevaCaja(void)
     for(ivista2d = vistas2d.begin(); ivista2d != vistas2d.end(); ivista2d++)
     {
         (*ivista2d)->NuevaCaja(color, posicion);
+    }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->NuevaCaja(color, posicion);
     }
     }
 }
@@ -190,6 +200,11 @@ void MainWindow::NuevaPersona(void)
     {
         (*ivista2d)->NuevaPersona(color, posicion, orientacion);
     }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->NuevaPersona(color, posicion, orientacion);
+    }
     }
 }
 
@@ -215,6 +230,11 @@ void MainWindow::NuevoRobot(void)
     {
         (*ivista2d)->NuevoRobot(color, posicion, orientacion);
     }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->NuevoRobot(color, posicion, orientacion);
+    }
     }
 }
 
@@ -233,6 +253,11 @@ void MainWindow::BorrarEsferas(void)
     {
         (*ivista2d)->BorrarEsferas();
     }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->BorrarEsferas();
+    }
     escena->BorrarEsferas();
 }
 
@@ -242,6 +267,11 @@ void MainWindow::BorrarCajas(void)
     for(ivista2d = vistas2d.begin(); ivista2d != vistas2d.end(); ivista2d++)
     {
         (*ivista2d)->BorrarCajas();
+    }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->BorrarCajas();
     }
     escena->BorrarCajas();
 }
@@ -253,6 +283,11 @@ void MainWindow::BorrarPersonas(void)
     {
         (*ivista2d)->BorrarPersonas();
     }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->BorrarPersonas();
+    }
     escena->BorrarPersonas();
 }
 
@@ -262,6 +297,11 @@ void MainWindow::BorrarRobots(void)
     for(ivista2d = vistas2d.begin(); ivista2d != vistas2d.end(); ivista2d++)
     {
         (*ivista2d)->BorrarRobots();
+    }
+    std::vector<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->BorrarRobots();
     }
     escena->BorrarRobots();
 }
@@ -276,11 +316,10 @@ void MainWindow::NuevaVista2D(void)
 
 void MainWindow::NuevaVista3D(void)
 {
-    CVista3D* vista3d = new CVista3D;
+    CVista3D* vista3d = new CVista3D();
     vistas3d.push_back(vista3d);
     vista3d->Escena(escena);
     vista3d->start();
-//    vista3d->show();
 }
 
 void MainWindow::NuevoControlPersona(void)

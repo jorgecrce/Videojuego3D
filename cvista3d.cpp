@@ -7,7 +7,7 @@ CVista3D::CVista3D()
     escena3d = new osg::Group();
 
     //Modelos Baldosas
-    Node_BaldosaBlanca = osgDB::readNodeFile( "sii-baldosa.3ds" );
+    Node_BaldosaBlanca = osgDB:: readNodeFile( "sii-baldosa.3ds" );
     Node_BaldosaGris   = osgDB::readNodeFile( "sii-baldosa.3ds" );
     Node_BaldosaNegra  = osgDB::readNodeFile( "sii-baldosa.3ds" );
 
@@ -20,7 +20,7 @@ CVista3D::CVista3D()
     Node_BaldosaNegra_Material  = new osg::Material;
 
     Node_BaldosaBlanca_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f ,1.0f ,1.0f ,1.0f));
-    Node_BaldosaGris_Material  ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.75f,0.75f,0.75f,1.0f));
+    Node_BaldosaGris_Material  ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.75f,0.75f,0.75f,1.0f));//Ahora roja
     Node_BaldosaNegra_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f ,0.0f ,0.0f ,1.0f));
 
     Node_BaldosaBlanca_SS->setAttribute(Node_BaldosaBlanca_Material.get());
@@ -82,62 +82,27 @@ CVista3D::CVista3D()
     Node_CajaVerde_SS->setAttribute(Node_CajaVerde_Material.get());
     Node_CajaAzul_SS ->setAttribute(Node_CajaAzul_Material .get());
 
-    //Modelos Personas
-    Persona               = new osg::Cylinder(osg::Vec3(0,0,0), 0.25, 2.0);
-    ShapeDrawable_Persona = new osg::ShapeDrawable(Persona);
+    /*//Modelo Tetera-Caja
+    Node_TeteraRoja = osgDB::readNodeFile( "tetera.stl" );
+    Node_TeteraVerde = osgDB::readNodeFile( "tetera.stl" );
+    Node_TeteraAzul = osgDB::readNodeFile( "tetera.stl" );
 
-    Geode_PersonaRoja  = new osg::Geode();
-    Geode_PersonaVerde = new osg::Geode();
-    Geode_PersonaAzul  = new osg::Geode();
+    Node_TeteraRoja_SS = Node_TeteraRoja->getOrCreateStateSet();
+    Node_TeteraVerde_SS = Node_TeteraVerde->getOrCreateStateSet();
+    Node_TeteraAzul_SS = Node_TeteraAzul->getOrCreateStateSet();
 
-    Geode_PersonaRoja ->addDrawable(ShapeDrawable_Persona);
-    Geode_PersonaVerde->addDrawable(ShapeDrawable_Persona);
-    Geode_PersonaAzul ->addDrawable(ShapeDrawable_Persona);
-
-    Node_PersonaRoja_SS  = Geode_PersonaRoja ->getOrCreateStateSet();
-    Node_PersonaVerde_SS = Geode_PersonaVerde->getOrCreateStateSet();
-    Node_PersonaAzul_SS  = Geode_PersonaAzul ->getOrCreateStateSet();
-
-    Node_PersonaRoja_Material  = new osg::Material;
-    Node_PersonaVerde_Material = new osg::Material;
-    Node_PersonaAzul_Material  = new osg::Material;
-
-    Node_PersonaRoja_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f,0.0f,0.0f,1.0f));
-    Node_PersonaVerde_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,1.0f,0.0f,1.0f));
-    Node_PersonaAzul_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,0.0f,1.0f,1.0f));
-
-    Node_PersonaRoja_SS ->setAttribute(Node_PersonaRoja_Material .get());
-    Node_PersonaVerde_SS->setAttribute(Node_PersonaVerde_Material.get());
-    Node_PersonaAzul_SS ->setAttribute(Node_PersonaAzul_Material .get());
-
-    //Modelos Robots
-    Robot               = new osg::Cylinder(osg::Vec3(0,0,0), 0.30, 1.0);
-    ShapeDrawable_Robot = new osg::ShapeDrawable(Robot);
-
-    Geode_RobotRojo  = new osg::Geode();
-    Geode_RobotVerde = new osg::Geode();
-    Geode_RobotAzul  = new osg::Geode();
-
-    Geode_RobotRojo ->addDrawable(ShapeDrawable_Robot);
-    Geode_RobotVerde->addDrawable(ShapeDrawable_Robot);
-    Geode_RobotAzul ->addDrawable(ShapeDrawable_Robot);
-
-    Node_RobotRojo_SS  = Geode_RobotRojo ->getOrCreateStateSet();
-    Node_RobotVerde_SS = Geode_RobotVerde->getOrCreateStateSet();
-    Node_RobotAzul_SS  = Geode_RobotAzul ->getOrCreateStateSet();
-
-    Node_RobotRojo_Material  = new osg::Material;
+    Node_RobotRojo_Material = new osg::Material;
     Node_RobotVerde_Material = new osg::Material;
-    Node_RobotAzul_Material  = new osg::Material;
+    Node_RobotAzul_Material = new osg::Material;
 
-    Node_RobotRojo_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f,0.0f,0.0f,1.0f));
-    Node_RobotVerde_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,1.0f,0.0f,1.0f));
-    Node_RobotAzul_Material ->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f,0.0f,1.0f,1.0f));
+    Node_RobotRojo_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f ,0.0f ,0.0f ,1.0f));
+    Node_RobotVerde_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f ,1.0f ,0.0f ,1.0f));
+    Node_RobotAzul_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f ,0.0f ,1.0f ,1.0f));
 
-    Node_RobotRojo_SS ->setAttribute(Node_RobotRojo_Material .get());
+    Node_RobotRojo_SS->setAttribute(Node_RobotRojo_Material.get());
     Node_RobotVerde_SS->setAttribute(Node_RobotVerde_Material.get());
-    Node_RobotAzul_SS ->setAttribute(Node_RobotAzul_Material .get());
-
+    Node_RobotAzul_SS->setAttribute(Node_RobotAzul_Material.get());
+*/
     //Modelo Persona Forma
     Node_PersonaFormaRoja  = osgDB::readNodeFile( "sii-persona.stl" );
     Node_PersonaFormaVerde = osgDB::readNodeFile( "sii-persona.stl" );
@@ -159,6 +124,27 @@ CVista3D::CVista3D()
     Node_PersonaFormaVerde_SS->setAttribute(Node_PersonaFormaVerde_Material.get());
     Node_PersonaFormaAzul_SS ->setAttribute(Node_PersonaFormaAzul_Material .get());
 
+    //Modelo Robot
+    Node_RobotRojo = osgDB::readNodeFile( "robot.stl" );
+    Node_RobotVerde = osgDB::readNodeFile( "robot.stl" );
+    Node_RobotAzul = osgDB::readNodeFile( "robot.stl" );
+
+    Node_RobotRojo_SS = Node_RobotRojo->getOrCreateStateSet();
+    Node_RobotVerde_SS = Node_RobotVerde->getOrCreateStateSet();
+    Node_RobotAzul_SS = Node_RobotAzul->getOrCreateStateSet();
+
+    Node_RobotRojo_Material = new osg::Material;
+    Node_RobotVerde_Material = new osg::Material;
+    Node_RobotAzul_Material = new osg::Material;
+
+    Node_RobotRojo_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(1.0f ,0.0f ,0.0f ,1.0f));
+    Node_RobotVerde_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f ,1.0f ,0.0f ,1.0f));
+    Node_RobotAzul_Material->setDiffuse(osg::Material::FRONT,osg::Vec4(0.0f ,0.0f ,1.0f ,1.0f));
+
+    Node_RobotRojo_SS->setAttribute(Node_RobotRojo_Material.get());
+    Node_RobotVerde_SS->setAttribute(Node_RobotVerde_Material.get());
+    Node_RobotAzul_SS->setAttribute(Node_RobotAzul_Material.get());
+
     //Objetos Baldosas
     for(int i = NumBaldosasXMin; i <= NumBaldosasXMax; i++)
     {
@@ -168,15 +154,16 @@ CVista3D::CVista3D()
         osg::Vec3 posicion(i*0.5,j*0.5,0);
         trasformacion->setPosition(posicion);
         if((i==-100) && (j==-100))
-            trasformacion->addChild(Node_BaldosaNegra);
+            trasformacion->addChild(Node_BaldosaGris);
         else
             if((i+j)%2)
-                trasformacion->addChild(Node_BaldosaGris);
+                trasformacion->addChild(Node_BaldosaNegra);
             else
                 trasformacion->addChild(Node_BaldosaBlanca);
         escena3d->addChild(trasformacion);
         }
     }
+
 
     //Vista
     vista.setSceneData( escena3d );
@@ -211,154 +198,25 @@ void CVista3D::Escena(CEscena* _escena)
     nodos_personas.clear();
     nodos_robots  .clear();
 
-    if(escena = _escena)
+    escena=_escena;
+
+    for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
     {
-        //Objetos Esferas
-        for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
-        {
-            CEsfera3D* esfera3d = new CEsfera3D;
-            esfera3d->id    = escena->Esfera(esfera)->Id();
-            esfera3d->radio = ESFERA_RADIO;
-            esfera3d->x     = escena->Esfera(esfera)->PosicionX();
-            esfera3d->y     = escena->Esfera(esfera)->PosicionY();
-            esfera3d->z     = AlturaBaldosa + esfera3d->radio;
-            esfera3d->color = escena->Esfera(esfera)->Color();
-            esferas3d.push_back(*esfera3d);
-
-            osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
-            nodos_esferas.push_back(trasformacion);
-            osg::Vec3 posicion(esfera3d->x, esfera3d->y, esfera3d->z);
-            trasformacion->setPosition(posicion);
-            trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
-            switch(esfera3d->color)
-            {
-            case Rojo:
-                trasformacion->addChild(Geode_EsferaRoja);
-                break;
-            case Verde:
-                trasformacion->addChild(Geode_EsferaVerde);
-                break;
-            case Azul:
-                trasformacion->addChild(Geode_EsferaAzul);
-                break;
-            }
-            escena3d->addChild(trasformacion);
-        }
-
-        //Objetos Cajas
-        for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
-        {
-            CCaja3D* caja3d = new CCaja3D;
-            caja3d->id     = escena->Caja(caja)->Id();
-            caja3d->radio  = CAJA_RADIO;
-            caja3d->altura = CAJA_ALTURA;
-            caja3d->x      = escena->Caja(caja)->PosicionX();
-            caja3d->y      = escena->Caja(caja)->PosicionY();
-            caja3d->z      = AlturaBaldosa + caja3d->altura / 2;
-            caja3d->color  = escena->Caja(caja)->Color();
-            cajas3d.push_back(*caja3d);
-
-            osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
-            nodos_cajas.push_back(trasformacion);
-            osg::Vec3 posicion(caja3d->x, caja3d->y, caja3d->z);
-            trasformacion->setPosition(posicion);
-            switch(caja3d->color)
-            {
-            case Rojo:
-                trasformacion->addChild(Geode_CajaRoja);
-                break;
-            case Verde:
-                trasformacion->addChild(Geode_CajaVerde);
-                break;
-            case Azul:
-                trasformacion->addChild(Geode_CajaAzul);
-                break;
-            }
-            escena3d->addChild(trasformacion);
-        }
-
-        //Objetos Personas
-        for(unsigned int persona = 0; persona < escena->NumPersonas() ; persona++)
-        {
-            CPersona3D* persona3d = new CPersona3D;
-            persona3d->id     = escena->Persona(persona)->Id();
-            persona3d->radio  = PERSONA_RADIO;
-            persona3d->altura = PERSONA_ALTURA;
-            persona3d->x      = escena->Persona(persona)->PosicionX();
-            persona3d->y      = escena->Persona(persona)->PosicionY();
-            persona3d->z      = AlturaBaldosa + persona3d->altura / 2;
-            persona3d->color  = escena->Persona(persona)->Color();
-            personas3d.push_back(*persona3d);
-
-            osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
-            nodos_personas.push_back(trasformacion);
-            osg::Vec3 posicion(persona3d->x, persona3d->y, persona3d->z);
-            trasformacion->setPosition(posicion);
-            switch(persona3d->color)
-            {
-            case Rojo:
-                trasformacion->addChild(Geode_PersonaRoja);
-                break;
-            case Verde:
-                trasformacion->addChild(Geode_PersonaVerde);
-                break;
-            case Azul:
-                trasformacion->addChild(Geode_PersonaAzul);
-                break;
-            }
-            escena3d->addChild(trasformacion);
-        }
-
-        //Objetos Robots
-        for(unsigned int robot = 0; robot < escena->NumRobots() ; robot++)
-        {
-            CRobot3D* robot3d = new CRobot3D;
-            robot3d->id     = escena->Robot(robot)->Id();
-            robot3d->radio  = ROBOT_RADIO;
-            robot3d->altura = ROBOT_ALTURA;
-            robot3d->x      = escena->Robot(robot)->PosicionX();
-            robot3d->y      = escena->Robot(robot)->PosicionY();
-            robot3d->z      = AlturaBaldosa + robot3d->altura / 2;
-            robot3d->color  = escena->Robot(robot)->Color();
-            robots3d.push_back(*robot3d);
-
-            osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
-            nodos_robots.push_back(trasformacion);
-            osg::Vec3 posicion(robot3d->x, robot3d->y, robot3d->z);
-            trasformacion->setPosition(posicion);
-            switch(robot3d->color)
-            {
-            case Rojo:
-                trasformacion->addChild(Geode_RobotRojo);
-                break;
-            case Verde:
-                trasformacion->addChild(Geode_RobotVerde);
-                break;
-            case Azul:
-                trasformacion->addChild(Geode_RobotAzul);
-                break;
-            }
-            escena3d->addChild(trasformacion);
-        }
-
-        for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
-        {
-            NuevaEsfera(escena->Esfera(esfera)->Color(), escena->Esfera(esfera)->Posicion());
-        }
-        for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
-        {
-            NuevaCaja(escena->Caja(caja)->Color(), escena->Caja(caja)->Posicion());
-        }
-        for(unsigned int persona = 0; persona < escena->NumPersonas(); persona++)
-        {
-            NuevaPersona(escena->Persona(persona)->Color(), escena->Persona(persona)->Posicion(), escena->Persona(persona)->Orientacion());
-        }
-        for(unsigned int robot = 0; robot < escena->NumRobots(); robot++)
-        {
-            NuevoRobot(escena->Robot(robot)->Color(), escena->Robot(robot)->Posicion(), escena->Robot(robot)->Orientacion());
-        }
-        escena->ConectarVista3D(this);
+        NuevaEsfera(escena->Esfera(esfera)->Color(), escena->Esfera(esfera)->Posicion());
     }
+    for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
+    {
+        NuevaCaja(escena->Caja(caja)->Color(), escena->Caja(caja)->Posicion());
+    }
+    for(unsigned int persona = 0; persona < escena->NumPersonas(); persona++)
+    {
+        NuevaPersona(escena->Persona(persona)->Color(), escena->Persona(persona)->Posicion(), escena->Persona(persona)->Orientacion());
+    }
+    for(unsigned int robot = 0; robot < escena->NumRobots(); robot++)
+    {
+        NuevoRobot(escena->Robot(robot)->Color(), escena->Robot(robot)->Posicion(), escena->Robot(robot)->Orientacion());
+    }
+    escena->ConectarVista3D(this);
 }
 
 CEscena* CVista3D::Escena(void)
@@ -368,11 +226,8 @@ CEscena* CVista3D::Escena(void)
 
 void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
 {
-    //Objetos Esferas
-    for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
-    {
         CEsfera3D* esfera3d = new CEsfera3D;
-        esfera3d->id    = escena->Esfera(esfera)->Id();
+        esfera3d->id    = (escena->NumEsferas())+1;
         esfera3d->radio = ESFERA_RADIO;
         esfera3d->x     = posicion.x;
         esfera3d->y     = posicion.y;
@@ -382,8 +237,8 @@ void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
 
         osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
         nodos_esferas.push_back(trasformacion);
-        osg::Vec3 posicion(esfera3d->x, esfera3d->y, esfera3d->z);
-        trasformacion->setPosition(posicion);
+        osg::Vec3 position(esfera3d->x, -esfera3d->y, esfera3d->z);
+        trasformacion->setPosition(position);
         trasformacion->setScale(osg::Vec3(esfera3d->radio, esfera3d->radio, esfera3d->radio));
 
         switch(color)
@@ -399,15 +254,13 @@ void CVista3D::NuevaEsfera(TColor color, TPosicion posicion)
             break;
         }
         escena3d->addChild(trasformacion);
-    }
+
 }
 
 void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
 {
-    for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
-    {
         CCaja3D* caja3d = new CCaja3D;
-        caja3d->id     = escena->Caja(caja)->Id();
+        caja3d->id     = (escena->NumCajas())+1;
         caja3d->radio  = CAJA_RADIO;
         caja3d->altura = CAJA_ALTURA;
         caja3d->x      = posicion.x;
@@ -418,8 +271,8 @@ void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
 
         osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
         nodos_cajas.push_back(trasformacion);
-        osg::Vec3 posicion(caja3d->x, caja3d->y, caja3d->z);
-        trasformacion->setPosition(posicion);
+        osg::Vec3 position(caja3d->x, -caja3d->y, caja3d->z);
+        trasformacion->setPosition(position);
         switch(color)
         {
         case Rojo:
@@ -433,75 +286,78 @@ void CVista3D::NuevaCaja(TColor color, TPosicion posicion)
             break;
         }
         escena3d->addChild(trasformacion);
-    }
+
 }
 
 void CVista3D::NuevaPersona(TColor color, TPosicion posicion, float orientacion)
 {
-    for(unsigned int persona = 0; persona < escena->NumPersonas() ; persona++)
-    {
-        CPersona3D* persona3d = new CPersona3D;
-        persona3d->id     = escena->Persona(persona)->Id();
-        persona3d->radio  = PERSONA_RADIO;
-        persona3d->altura = PERSONA_ALTURA;
-        persona3d->x      = posicion.x;
-        persona3d->y      = posicion.y;
-        persona3d->z      = AlturaBaldosa + persona3d->altura / 2;
-        persona3d->color  = color;
-        personas3d.push_back(*persona3d);
+    float altura;
+    CPersona3D* persona3d = new CPersona3D;
+    persona3d->id     = (escena->NumPersonas())+1;
+    persona3d->radio  = PERSONA_RADIO;
+    persona3d->altura = PERSONA_ALTURA;
+    persona3d->x      = posicion.x;
+    persona3d->y      = posicion.y;
+    persona3d->z      = AlturaBaldosa + persona3d->altura/2;
+    persona3d->color  = color;
+    personas3d.push_back(*persona3d);
 
-        osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
-        nodos_personas.push_back(trasformacion);
-        osg::Vec3 posicion(persona3d->x, persona3d->y, persona3d->z);
-        trasformacion->setPosition(posicion);
-        switch(color)
-        {
+    osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
+    nodos_personas.push_back(trasformacion);
+    osg::Vec3 position(persona3d->x, -persona3d->y, persona3d->z);
+    trasformacion->setPosition(position);
+    altura=2*(Node_PersonaFormaRoja->getBound().radius());
+    trasformacion->setScale(osg::Vec3(PERSONA_ALTURA/altura,PERSONA_ALTURA/altura,PERSONA_ALTURA/altura));
+    trasformacion->setAttitude(osg::Quat(orientacion+osg::DegreesToRadians(90.0), osg::Vec3(0,0,1)));
+    switch(color)
+    {
         case Rojo:
-            trasformacion->addChild(Geode_PersonaRoja);
+            trasformacion->addChild(Node_PersonaFormaRoja);
             break;
         case Verde:
-            trasformacion->addChild(Geode_PersonaVerde);
+            trasformacion->addChild(Node_PersonaFormaVerde);
             break;
         case Azul:
-            trasformacion->addChild(Geode_PersonaAzul);
+            trasformacion->addChild(Node_PersonaFormaAzul);
             break;
-        }
-        escena3d->addChild(trasformacion);
     }
+    escena3d->addChild(trasformacion);
 }
 
 void CVista3D::NuevoRobot(TColor color, TPosicion posicion, float orientacion)
 {
-    for(unsigned int robot = 0; robot < escena->NumRobots() ; robot++)
-    {
-        CRobot3D* robot3d = new CRobot3D;
-        robot3d->id     = escena->Robot(robot)->Id();
+    float altura;
+    CRobot3D* robot3d = new CRobot3D;
+        robot3d->id     = (escena->NumRobots())+1;
         robot3d->radio  = ROBOT_RADIO;
         robot3d->altura = ROBOT_ALTURA;
         robot3d->x      = posicion.x;
         robot3d->y      = posicion.y;
-        robot3d->z      = AlturaBaldosa + robot3d->altura / 2;
+        robot3d->z      = AlturaBaldosa*2.5/* - robot3d->altura/2*/;
         robot3d->color  = color;
         robots3d.push_back(*robot3d);
 
         osg::ref_ptr<osg::PositionAttitudeTransform> trasformacion = new osg::PositionAttitudeTransform();
         nodos_robots.push_back(trasformacion);
-        osg::Vec3 posicion(robot3d->x, robot3d->y, robot3d->z);
-        trasformacion->setPosition(posicion);
+        osg::Vec3 position(robot3d->x, -robot3d->y, robot3d->z);
+        trasformacion->setPosition(position);
+        altura=2*(Node_RobotRojo->getBound().radius());
+        trasformacion->setScale(osg::Vec3(ROBOT_ALTURA/altura,ROBOT_ALTURA/altura,ROBOT_ALTURA/altura));
+        trasformacion->setAttitude(osg::Quat(orientacion+osg::DegreesToRadians(90.0), osg::Vec3(0,0,1)));
         switch(color)
         {
         case Rojo:
-            trasformacion->addChild(Geode_RobotRojo);
+            trasformacion->addChild(Node_RobotRojo);
             break;
         case Verde:
-            trasformacion->addChild(Geode_RobotVerde);
+            trasformacion->addChild(Node_RobotVerde);
             break;
         case Azul:
-            trasformacion->addChild(Geode_RobotAzul);
+            trasformacion->addChild(Node_RobotAzul);
             break;
         }
         escena3d->addChild(trasformacion);
-    }
+
 }
 
 void CVista3D::PosicionEsfera(unsigned int esfera, TPosicion posicion)
@@ -536,36 +392,38 @@ void CVista3D::OrientacionRobot(unsigned int robot, float orientacion)
 
 void CVista3D::BorrarEsferas(void)
 {
-    /*
-     * for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
+    for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
     {
-        nodos_esferas.erase(esfera);
+       escena3d->removeChild(nodos_esferas[esfera]);
     }
-
     nodos_esferas.clear();
-
-    std::vector<QGraphicsEllipseItem*>::iterator iesfera2d;
-    for(iesfera2d = esferas2d.begin(); iesfera2d != esferas2d.end(); iesfera2d++)
-    {
-        escena2d->removeItem(*iesfera2d);
-    }
-    esferas2d.clear();
-*/
 }
 
 void CVista3D::BorrarCajas(void)
 {
-
+    for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
+    {
+       escena3d->removeChild(nodos_cajas[caja]);
+    }
+    nodos_cajas.clear();
 }
 
 void CVista3D::BorrarPersonas(void)
 {
-
+    for(unsigned int persona = 0; persona < escena->NumPersonas(); persona++)
+    {
+       escena3d->removeChild(nodos_personas[persona]);
+    }
+    nodos_personas.clear();
 }
 
 void CVista3D::BorrarRobots(void)
 {
-
+    for(unsigned int robot = 0; robot < escena->NumRobots(); robot++)
+    {
+       escena3d->removeChild(nodos_robots[robot]);
+    }
+    nodos_robots.clear();
 }
 
 void CVista3D::Actualizar(void)
@@ -590,48 +448,30 @@ void CVista3D::Recuperar(FILE *archivo)
 
 void CVista3D::run()
 {
-/*
-    //Simulacion Movimiento - Carro
-    osg::Geode* Geode_Carro = new osg::Geode();
-    Geode_Carro->addDrawable( new osg::ShapeDrawable( new osg::Box(osg::Vec3(0.0f,0.0f,0.0f),0.5f) ) );
-
-    osg::MatrixTransform* MatrixTransform_Carro = new osg::MatrixTransform;
-    MatrixTransform_Carro->addChild( Geode_Carro );
-
-    osg::ref_ptr<osg::AnimationPath> AnimationPath_Camino = new osg::AnimationPath;
-    AnimationPath_Camino->setLoopMode( osg::AnimationPath::SWING );
-
-    osg::AnimationPath::ControlPoint ControlPoint_0(osg::Vec3(-10.0,-10.0,0.0));
-    osg::AnimationPath::ControlPoint ControlPoint_1(osg::Vec3( 10.0, 10.0,0.0));
-    AnimationPath_Camino->insert( 0.0f, ControlPoint_0 );
-    AnimationPath_Camino->insert( 5.0f, ControlPoint_1 );
-
-    osg::ref_ptr<osg::AnimationPathCallback> AnimationPathCallback_Camino = new osg::AnimationPathCallback( AnimationPath_Camino );
-    MatrixTransform_Carro->setUpdateCallback( AnimationPathCallback_Camino );
-    escena3d->addChild(MatrixTransform_Carro);
-*/
-
     while(!vista.done())
     {
         for(unsigned int esfera = 0; esfera < escena->NumEsferas(); esfera++)
         {
-            osg::Vec3 posicion(escena->Esfera(esfera)->PosicionX(), escena->Esfera(esfera)->PosicionY(), AlturaBaldosa + ESFERA_RADIO);
+            osg::Vec3 posicion(escena->Esfera(esfera)->PosicionX(), -escena->Esfera(esfera)->PosicionY(), AlturaBaldosa + ESFERA_RADIO);
             nodos_esferas[esfera]->setPosition(posicion);
         }
         for(unsigned int caja = 0; caja < escena->NumCajas(); caja++)
         {
-            osg::Vec3 posicion(escena->Caja(caja)->PosicionX(), escena->Caja(caja)->PosicionY(), AlturaBaldosa + CAJA_ALTURA / 2);
+            osg::Vec3 posicion(escena->Caja(caja)->PosicionX(), -escena->Caja(caja)->PosicionY(), AlturaBaldosa + CAJA_ALTURA / 2);
             nodos_cajas[caja]->setPosition(posicion);
         }
         for(unsigned int persona = 0; persona < escena->NumPersonas(); persona++)
         {
-            osg::Vec3 posicion(escena->Persona(persona)->PosicionX(), escena->Persona(persona)->PosicionY(), AlturaBaldosa + PERSONA_ALTURA / 2);
+            osg::Vec3 posicion(escena->Persona(persona)->PosicionX(), -escena->Persona(persona)->PosicionY(), AlturaBaldosa + PERSONA_ALTURA / 2);
             nodos_personas[persona]->setPosition(posicion);
+            osg::Quat orientacion(escena->Persona(persona)->Orientacion()+osg::DegreesToRadians(90.0), osg::Vec3(0,0,1));
+            nodos_personas[persona]->setAttitude(orientacion);
         }
         for(unsigned int robot = 0; robot < escena->NumRobots(); robot++)
         {
-            osg::Vec3 posicion(escena->Robot(robot)->PosicionX(), escena->Robot(robot)->PosicionY(), AlturaBaldosa + ROBOT_ALTURA / 2);
+            osg::Vec3 posicion(escena->Robot(robot)->PosicionX(), -escena->Robot(robot)->PosicionY(), AlturaBaldosa*2.5 /*+ ROBOT_ALTURA / 2*/);
             nodos_robots[robot]->setPosition(posicion);
+            nodos_robots[robot]->setAttitude(osg::Quat(escena->Robot(robot)->Orientacion()+osg::DegreesToRadians(90.0), osg::Vec3(0,0,1)));
         }
         vista.frame();
     }
