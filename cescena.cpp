@@ -270,6 +270,13 @@ void CEscena::Mostrar(void)
         (*ivista2d)->Actualizar();
         (*ivista2d)->Mostrar();
     }
+
+    std::list<CVista3D*>::iterator ivista3d;
+    for(ivista3d = vistas3d.begin(); ivista3d != vistas3d.end(); ivista3d++)
+    {
+        (*ivista3d)->Actualizar();
+        (*ivista3d)->Mostrar();
+    }
 }
 
 void CEscena::Guardar(FILE* archivo)

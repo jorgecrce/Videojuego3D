@@ -93,13 +93,9 @@ class CVista3D : public QThread
                             Node_RobotRojo,
                             Node_RobotVerde,
                             Node_RobotAzul,
-                            Node_MujerRoja,
-                            Node_MujerVerde,
-                            Node_MujerAzul,
                             Node_CajaAzul,
                             Node_CajaRoja,
                             Node_CajaVerde;
-
     osg::ref_ptr<osg::StateSet> Node_BaldosaBlanca_SS,
                                 Node_BaldosaGris_SS,
                                 Node_BaldosaNegra_SS,
@@ -114,10 +110,7 @@ class CVista3D : public QThread
                                 Node_RobotAzul_SS,
                                 Node_PersonaFormaRoja_SS,
                                 Node_PersonaFormaVerde_SS,
-                                Node_PersonaFormaAzul_SS,
-                                Node_MujerRoja_SS,
-                                Node_MujerVerde_SS,
-                                Node_MujerAzul_SS;
+                                Node_PersonaFormaAzul_SS;
 
     osg::ref_ptr<osg::Material> Node_BaldosaBlanca_Material,
                                 Node_BaldosaGris_Material,
@@ -128,28 +121,17 @@ class CVista3D : public QThread
                                 Node_CajaRoja_Material,
                                 Node_CajaVerde_Material,
                                 Node_CajaAzul_Material,
-                                Node_PersonaRoja_Material,
-                                Node_PersonaVerde_Material,
-                                Node_PersonaAzul_Material,
                                 Node_RobotRojo_Material,
                                 Node_RobotVerde_Material,
                                 Node_RobotAzul_Material,
                                 Node_PersonaFormaRoja_Material,
                                 Node_PersonaFormaVerde_Material,
-                                Node_PersonaFormaAzul_Material,
-                                Node_MujerRoja_Material,
-                                Node_MujerVerde_Material,
-                                Node_MujerAzul_Material;
+                                Node_PersonaFormaAzul_Material;
     osg::ref_ptr<osg::Sphere> Esfera;
-    osg::ref_ptr<osg::Cylinder> Caja;
-    osg::ref_ptr<osg::ShapeDrawable> ShapeDrawable_Esfera,
-                                     ShapeDrawable_Caja;
+    osg::ref_ptr<osg::ShapeDrawable> ShapeDrawable_Esfera;
     osg::ref_ptr<osg::Geode> Geode_EsferaRoja,
                              Geode_EsferaVerde,
-                             Geode_EsferaAzul,
-                             Geode_CajaRoja,
-                             Geode_CajaVerde,
-                             Geode_CajaAzul;
+                             Geode_EsferaAzul;
 public:
     CVista3D();
     ~CVista3D();
@@ -181,7 +163,7 @@ public:
     void Guardar(FILE* archivo);
     void Recuperar(FILE *archivo);
 
-    void run() Q_DECL_OVERRIDE;
+    //void run() Q_DECL_OVERRIDE;
 };
 
 #endif // CVISTA3D_H
