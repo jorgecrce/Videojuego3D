@@ -19,6 +19,7 @@
 #include <osg/Material>
 #include <osg/animationpath>
 #include <osg/matrixtransform>
+#include <osg/LightSource>
 
 #include "videojuego.h"
 #include "ccomunicacioncliente.h"
@@ -96,6 +97,8 @@ class CVista3D : public QThread
                             Node_CajaAzul,
                             Node_CajaRoja,
                             Node_CajaVerde;
+                           // light0,
+                            //light1;
     osg::ref_ptr<osg::StateSet> Node_BaldosaBlanca_SS,
                                 Node_BaldosaGris_SS,
                                 Node_BaldosaNegra_SS,
@@ -132,6 +135,7 @@ class CVista3D : public QThread
     osg::ref_ptr<osg::Geode> Geode_EsferaRoja,
                              Geode_EsferaVerde,
                              Geode_EsferaAzul;
+    //osg::ref_ptr<osg::LightSource> createLightSource;
 public:
     CVista3D();
     ~CVista3D();
@@ -162,6 +166,8 @@ public:
 
     void Guardar(FILE* archivo);
     void Recuperar(FILE *archivo);
+
+    osg::Node* createLightSource( unsigned int num, const osg::Vec3& trans, const osg::Vec4& color );//Función luz
 
     //void run() Q_DECL_OVERRIDE;
 };
